@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Servelet.iml" filepath="$PROJECT_DIR$/Servelet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_01_HelloServlet/_01_HelloServlet.iml" filepath="$PROJECT_DIR$/_01_HelloServlet/_01_HelloServlet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_02_HttpRequest/_02_HttpRequest.iml" filepath="$PROJECT_DIR$/_02_HttpRequest/_02_HttpRequest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_03_Mapping_Spec/_03_Mapping_Spec.iml" filepath="$PROJECT_DIR$/_03_Mapping_Spec/_03_Mapping_Spec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_04_AppOne/_04_AppOne.iml" filepath="$PROJECT_DIR$/_04_AppOne/_04_AppOne.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_05_AppTwo/_05_AppTwo.iml" filepath="$PROJECT_DIR$/_05_AppTwo/_05_AppTwo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_06_JSON_Processing/_06_JSON_Processing.iml" filepath="$PROJECT_DIR$/_06_JSON_Processing/_06_JSON_Processing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_07_InbuildCP/_07_InbuildCP.iml" filepath="$PROJECT_DIR$/_07_InbuildCP/_07_InbuildCP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_08_JBCP/_08_JBCP.iml" filepath="$PROJECT_DIR$/_08_JBCP/_08_JBCP.iml" />
+    </modules>
+  </component>
+</project>

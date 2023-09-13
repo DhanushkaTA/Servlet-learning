@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX using JQuery</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            /*display: flex;*/
+            /*align-items: center;*/
+            /*justify-content: center;*/
+        }
+
+        .con{
+            border: 2px solid black;
+            width: max-content;
+            height: 500px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        button{
+            height: 30px;
+            border-radius: 5px;
+            color: white;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 0px;
+        }
+
+        button:hover{
+            cursor: pointer;
+        }
+
+        #btn{
+            background-color: #08852a;
+        }
+
+        #btn:active{
+            background-color: #478558;
+        }
+
+        #btn_2{
+            background-color: #e50039;
+        }
+
+        #btn_2:active{
+            background-color: #e34e76;
+        }
+
+        #btn_3{
+            background-color: #0a53be;
+        }
+
+        #btn_3:active{
+            background-color: #5882be;
+        }
+
+        /*body>div>div:nth-child(2){*/
+        /*    margin: auto;*/
+        /*    padding: 10px;*/
+        /*    border: 2px solid #48c74e;*/
+        /*}*/
+
+        #btnContainer{
+            margin: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        p{
+            color: #4bd27b;
+        }
+
+        h1{
+            color: #08852a;
+        }
+
+        .blue{
+            background-color: #0a53be;
+            color: white;
+        }
+    </style>
+</head>
+<body >
+<div class="container-fluid">
+    <div class="row justify-content-around">
+
+        <div class="con col-5 mt-4">
+            <h1>Hello AJAX</h1>
+            <h2>Sent Request using AJAX</h2>
+            <h3>Get text/XML/JSON Response</h3>
+            <div id="btnContainer">
+                <button id="btn" type="button">request to txt</button>
+                <button id="btn_2" type="button">request to xml</button>
+                <button id="btn_3" type="button">request to json</button>
+            </div>
+
+            <div>
+                <p id="content"></p>
+            </div>
+        </div>
+
+        <div class="col-12 mt-4">
+            <table id="customerTable" class="table table-bordered  table-hover ">
+                <thead class="table-dark">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>Salary</td>
+                </tr>
+                </thead>
+
+                <tbody class="table-success overflow-y-scroll">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-12 mt-5">
+            <table id="customerTableJson" class="table table-bordered  table-hover ">
+                <thead class="blue">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>Salary</td>
+                </tr>
+                </thead>
+
+                <tbody class="table-success overflow-y-scroll">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="assets/jquery/jquery-3.6.0.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  $('#btn').click(function (){
+
+      console.log("Started");
+
+      $.ajax({
+          url:"db/db.txt",
+          // async:false,//to synchronous
+          success:function (resp) {
+              console.log(resp);
+              $('#content').text(resp);
+          },
+          error:function (err) {
+              console.log(err);
+          }//to print error msg
+      });
+
+      console.log("Ended");
+  });
+
+  $('#btn_2').click(function (){
+     console.log("Started xml Request");
+
+     $.ajax({
+        url: "db/db.xml",
+         success:function (resp){
+            //console.log(resp);
+            // console.log(resp.getElementsByTagName('customer')[0].getElementsByTagName('id'));
+            // console.log(resp.getElementsByTagName('id')[0].textContent);
+            // console.log();
+            // console.log(arr[0].textContent)
+            // for (const value of arr) {
+            //     console.log(value.textContent)
+            // }
+            //$(resp) == convert xml Object to Jquery object
+            //let chi=$(resp).children();
+            //let chi=$(resp).children().children();
+            //console.log(chi)
+
+            $('#customerTable tbody tr').remove();
+
+            /**
+              * let id=resp.getElementsByTagName('id');
+              *let name=resp.getElementsByTagName('name');
+              *let address=resp.getElementsByTagName('address');
+              *let salary=resp.getElementsByTagName('salary');
+              *console.log(salary)
+              *
+              * for (let index=0;index<id.length;index++) {
+                 let row="<tr>"+
+                     "<td>"+id[index].textContent+"</td>"+
+                     "<td>"+name[index].textContent+"</td>"+
+                     "<td>"+address[index].textContent+"</td>"+
+                     "<td>"+salary[index].textContent+"</td>"+
+                     "</tr>";
+
+                 console.log(row);
+                 $('#customerTable tbody').append(row);
+             }*/
+
+            for (let index=0;index<resp.getElementsByTagName('customer').length;index++) {
+                let row="<tr>"+
+                     "<td>"+resp.getElementsByTagName('id')[index].textContent+"</td>"+
+                     "<td>"+resp.getElementsByTagName('name')[index].textContent+"</td>"+
+                     "<td>"+resp.getElementsByTagName('address')[index].textContent+"</td>"+
+                     "<td>"+resp.getElementsByTagName('salary')[index].textContent+"</td>"+
+                     "</tr>";
+
+                console.log(row);
+                $('#customerTable tbody').append(row);
+            }
+         }
+     });
+
+     console.log("Ended xml Request");
+  });
+
+  $('#btn_3').click(function (){
+     $.ajax({
+         url:"http://localhost:8080/module_02/customer",
+         method:"POST",
+         success:function (resp){
+             console.log(resp);
+         },
+         error:function (err){
+             console.log(err);
+         }
+     })
+  });
+</script>
+</body>
+</html>

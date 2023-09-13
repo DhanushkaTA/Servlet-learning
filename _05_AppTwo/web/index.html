@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX using JQuery</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            /*display: flex;*/
+            /*align-items: center;*/
+            /*justify-content: center;*/
+        }
+
+        .con{
+            /*width: max-content;*/
+            /*height: 200px;*/
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        button{
+            height: 30px;
+            border-radius: 5px;
+            color: white;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 0px;
+        }
+
+        button:hover{
+            cursor: pointer;
+        }
+
+        #btn{
+            background-color: #08852a;
+        }
+
+        #btn:active{
+            background-color: #478558;
+        }
+
+        #btn_2{
+            background-color: #e50039;
+        }
+
+        #btn_2:active{
+            background-color: #e34e76;
+        }
+
+        #btn_3,#btnAdd{
+            background-color: #0a53be;
+        }
+
+        #btn_3:active,#btnAdd:active{
+            background-color: #5882be;
+        }
+
+        #btnDelete{
+            background-color: #be0a0a;
+        }
+
+        #btnDelete:active{
+            background-color: #be5858;
+        }
+
+        #btnUpdate{
+            background-color: #e1a408;
+            color:black;
+        }
+
+        #btnUpdate:active{
+            background-color: #d9b865;
+        }
+
+        /*body>div>div:nth-child(2){*/
+        /*    margin: auto;*/
+        /*    padding: 10px;*/
+        /*    border: 2px solid #48c74e;*/
+        /*}*/
+
+        #btnContainer{
+            margin: auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        p{
+            color: #4bd27b;
+        }
+
+        h1{
+            color: #08852a;
+        }
+
+        .blue{
+            background-color: #0a53be;
+            color: white;
+        }
+    </style>
+</head>
+<body >
+<div class="container-fluid">
+<!--    <div class="row p-3">-->
+
+<!--        <label for="txtId">Customer ID</label>-->
+<!--        <input type="text" id="txtId" class="col-3">-->
+
+<!--        <label for="txtName">Customer Name</label>-->
+<!--        <input type="text" id="txtName" class="col-3">-->
+
+<!--        <label for="txtAddress">Customer Address</label>-->
+<!--        <input type="text" id="txtAddress" class="col-3">-->
+
+<!--        <label for="txtSalary">Customer Salary</label>-->
+<!--        <input type="number" id="txtSalary" class="col-3">-->
+
+<!--    </div>-->
+
+<!--    <div class="row p-3">-->
+<!--        <button id="btnAdd" class="col-3 " type="button">Load to table</button>-->
+<!--    </div>-->
+
+
+    <div class="row p-3">
+        <form  id="customerForm" >
+            <div class="mb-3 row">
+                <label for="customerId" class="col-sm-2 col-form-label">ID</label>
+                <div class="col-sm-10">
+                    <input name="id" type="text" class="form-control" id="customerId">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="customerName" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input name="name" type="text" class="form-control" id="customerName">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="customerAddress" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <input name="address" type="text" class="form-control" id="customerAddress">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="customerSalary" class="col-sm-2 col-form-label">Salary</label>
+                <div class="col-sm-10">
+                    <input name="salary" type="number" class="form-control" id="customerSalary">
+                </div>
+            </div>
+
+            <div class="row p-3">
+                <button id="btnAdd" type="button" class="col-3 m-2" type="button">Add Customer</button>
+                <button id="btnDelete" type="button" class="col-3 m-2" type="button">Delete Customer</button>
+                <button id="btnUpdate" type="button" class="col-3 m-2" type="button">Update Customer</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="row justify-content-around">
+
+        <div class="con col-12 mt-1">
+                <button id="btn_3" type="button">Load to table</button>
+        </div>
+
+        <div class="col-12 mt-1">
+            <table id="customerTableJson" class="table table-bordered  table-hover ">
+                <thead class="blue">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>Salary</td>
+                </tr>
+                </thead>
+
+                <tbody class="table-success overflow-y-scroll">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="assets/jquery/jquery-3.6.0.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+    // $("#customerTableJson>tbody>tr").click(function (){
+    //     console.log("xxxxxxxx")
+    //     let id = $(this).children.eq(1).text();
+    //    console.log("id : "+id)
+    //
+    //
+    // });
+
+    $('#customerTableJson tbody').on('click', 'tr', (event) => {
+        $('#customerId').val($(event.target).closest('tr').find('td').eq(0).text())
+        $('#customerName').val($(event.target).closest('tr').find('td').eq(1).text())
+        $('#customerAddress').val($(event.target).closest('tr').find('td').eq(2).text())
+        $('#customerSalary').val($(event.target).closest('tr').find('td').eq(3).text())
+    });
+
+    function loadCustomersToTbl(){
+        $.ajax({
+            url:"customer2",
+            method:"GET",
+            // dataType:"json",
+            success:function (resp){
+                console.log(resp);
+                console.log(resp.length)
+
+                $('#customerTableJson tbody').empty();
+                for (let index=0;index<resp.length;index++) {
+                    let row="<tr>"+
+                        "<td>"+resp[index].id+"</td>"+
+                        "<td>"+resp[index].name+"</td>"+
+                        "<td>"+resp[index].address+"</td>"+
+                        "<td>"+resp[index].salary+"</td>"+
+                        "</tr>";
+
+                    console.log(row);
+                    $('#customerTableJson tbody').append(row);
+                }
+
+            },
+            error:function (err){
+                console.log(err);
+            }
+        })
+    }
+
+  $('#btn_3').click(function (){
+    loadCustomersToTbl();
+  });
+
+  $("#btnAdd").click(function (){
+      let id=$("#customerId").val();
+      let name=$("#customerName").val();
+      let address=$("#customerAddress").val();
+      let salary=parseFloat($("#customerSalary").val());
+
+      // let data='id='+id+'&name='+name+'&address='+address+'&salary='+salary;
+      let data = $("#customerForm").serialize();
+      console.log(data);
+
+     $.ajax({
+         url: "customer2",
+         method: "post",
+         data:data,
+         success:function (resp){
+             if (resp=="true"){
+                 alert("Customer add");
+
+                 loadCustomersToTbl();
+
+             }else if(resp=="false"){
+                 alert("Customer not add");
+             }
+         },
+         error:function (err){
+             console.log(err);
+         },
+     })
+  });
+
+  $("#btnDelete").click(function (){
+      let id=$("#customerId").val();
+
+      console.log("delete data : "+id);
+
+      $.ajax({
+          url: "customer2?id="+id,//data sent as a query string
+          method: "DELETE",
+          //data:data,
+          success:function (resp){
+              console.log(resp)
+              if (resp=="true"){
+                  alert("Customer Delete");
+                  loadCustomersToTbl();
+              }else if(resp=="false"){
+                  alert("Customer not delete");
+              }
+          },
+          error:function (ob,textStatus,err){
+              console.log(err);
+              console.log(ob);
+              console.log(textStatus);
+          },
+      })
+  });
+
+  $("#btnUpdate").click(function (){
+      let id=$("#customerId").val();
+      let name=$("#customerName").val();
+      let address=$("#customerAddress").val();
+      let salary=parseFloat($("#customerSalary").val());
+
+      let data = $("#customerForm").serialize();
+      $.ajax({
+          // url:"customer2?id="+id+'&name='+name+'&address='+address+'&salary='+salary,
+          url:"customer2?"+data,
+          method:"put",
+          success:function (resp) {
+              console.log(resp);
+              if (resp=="true"){
+                  alert("Customer Update");
+                  loadCustomersToTbl();
+              }else if(resp=="false"){
+                  alert("Customer not Update");
+              }
+          },
+          error:function (ob,textStatus,error){
+              console.log(ob);
+              console.log(textStatus);
+          },
+      })
+  });
+
+</script>
+</body>
+</html>
