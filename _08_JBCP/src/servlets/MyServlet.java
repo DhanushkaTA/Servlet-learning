@@ -1,8 +1,10 @@
+package servlets;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-@WebServlet(urlPatterns = "/servlet")
+@WebServlet(urlPatterns = "/servlets")
 public class MyServlet extends HttpServlet {
     //Life cycle of servlet
     public MyServlet() {
