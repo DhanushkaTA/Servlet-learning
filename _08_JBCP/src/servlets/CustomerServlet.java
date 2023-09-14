@@ -26,19 +26,6 @@ public class CustomerServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         writer.print("do method invoked");
 
-        //How to create connection pool
-        BasicDataSource bts=new BasicDataSource();
-        bts.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        bts.setUrl("jdbc:mysql://localhost/servlet");
-        bts.setUsername("root");
-        bts.setPassword("1234");
-
-        bts.setMaxTotal(5);//add how many connection we want
-        bts.setInitialSize(5);//set how many connection we should initialize
-
-        ServletContext servletContext = req.getServletContext();//get servlet context
-        servletContext.setAttribute("bds",bts);//add bds to servlet context
-
         try {
             Connection connection = bts.getConnection();//get connection
             ResultSet resultSet = connection.prepareStatement("SELECT * FROM customer").executeQuery();
