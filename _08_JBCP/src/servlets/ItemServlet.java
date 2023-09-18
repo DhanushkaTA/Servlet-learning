@@ -21,11 +21,12 @@ public class ItemServlet extends HttpServlet {
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("bds");
 
         try {
-            Connection connection = bds.getConnection();
+            Connection connection = bds.getConnection();//get connection from the connection pool
             ResultSet resultSet = connection.prepareStatement("SELECT * FROM item").executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));
             }
+            connection.close();//return the connection to the connection pool from the consumer pool
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

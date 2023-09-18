@@ -27,11 +27,13 @@ public class CustomerServlet extends HttpServlet {
         writer.print("do method invoked");
 
         try {
-            Connection connection = bts.getConnection();//get connection
+            BasicDataSource bds = (BasicDataSource) req.getServletContext().getAttribute("bds");
+            Connection connection = bds.getConnection();//get connection from the connection pool
             ResultSet resultSet = connection.prepareStatement("SELECT * FROM customer").executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));
             }
+            connection.close();//return the connection to the connection pool from the consumer pool
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -41,6 +43,7 @@ public class CustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = req.getServletContext();
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("bds");
+        //Connection connection = bds.getConnection();
 
         resp.setContentType("application/json");
 
@@ -54,7 +57,7 @@ public class CustomerServlet extends HttpServlet {
         String sql="INSERT INTO customer VALUES(?,?,?,?)";
 
         try {
-            Connection connection = bds.getConnection();
+            Connection connection = bds.getConnection();//get connection from the connection pool
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setObject(1,id);
             preparedStatement.setObject(2,name);
@@ -66,6 +69,7 @@ public class CustomerServlet extends HttpServlet {
             }else {
                 System.out.println("customer not saved");
             }
+            connection.close();//return the connection to the connection pool from the consumer pool
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
