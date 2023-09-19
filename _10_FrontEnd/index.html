@@ -218,7 +218,7 @@
 
     function loadCustomersToTbl(){
         $.ajax({
-            url:"customer3",
+            url:"http://localhost:8181/_09_Filters_Web_exploded/customer",
             method:"GET",
             // dataType:"json",
             success:function (resp){
@@ -271,7 +271,7 @@
       console.log(data);
 
      $.ajax({
-         url: "customer3",
+         url: "customer",
          method: "post",
          contentType:"application/json",
          data:JSON.stringify(data),
@@ -303,7 +303,7 @@
       console.log("delete data : "+id);
 
       $.ajax({
-          url: "customer3?id="+id,//data sent as a query string
+          url: "customer?id="+id,//data sent as a query string
           method: "DELETE",
           //data:data,
           success:function (resp){
@@ -346,7 +346,7 @@
            */
       $.ajax({
           // url:"customer2?id="+id+'&name='+name+'&address='+address+'&salary='+salary,
-          url:"customer3",
+          url:"customer",
           method:"put",
           contentType: "application/json",
           data:JSON.stringify(data),

@@ -25,6 +25,8 @@ public class CustomerServlet extends HttpServlet {
 
         resp.setContentType("application/json");
 
+        resp.addHeader("Access-Control-Allow-Origin","*");
+
         String sql="SELECT * FROM customer";
 
         try {
