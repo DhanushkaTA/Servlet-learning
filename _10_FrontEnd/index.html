@@ -257,6 +257,10 @@
       let name=$("#customerName").val();
       let address=$("#customerAddress").val();
       let salary=parseFloat($("#customerSalary").val());
+      // let id="lll";
+      // let name="lll";
+      // let address="ppp";
+      // let salary=2000;
 
       // let data='id='+id+'&name='+name+'&address='+address+'&salary='+salary;
       // let data = $("#customerForm").serialize();
@@ -268,15 +272,16 @@
           "address":address,
           "salary":salary
       }
+      console.log("post method data : ");
       console.log(data);
 
      $.ajax({
-         url: "customer",
-         method: "post",
+         url: "http://localhost:8181/_09_Filters_Web_exploded/customer",
+         method: "POST",
          contentType:"application/json",
          data:JSON.stringify(data),
          success:function (resp){
-             if (resp.status===200){
+             if (resp.status===201){
                  alert("Customer add");
 
                  loadCustomersToTbl();
@@ -286,13 +291,13 @@
              }
          },
          error:function (ob,textStatus,err){
-             alert(ob.responseJSON.data)
+             // alert(ob.responseJSON.data)
              alert(textStatus)
              console.log(err);
              console.log(ob);
              console.log(ob.responseText);
              console.log(ob.statusText);
-             console.log(ob.responseJSON.data);
+             // console.log(ob.responseJSON.data);
          },
      })
   });
@@ -303,7 +308,7 @@
       console.log("delete data : "+id);
 
       $.ajax({
-          url: "customer?id="+id,//data sent as a query string
+          url: "http://localhost:8181/_09_Filters_Web_exploded/customer?id="+id,//data sent as a query string
           method: "DELETE",
           //data:data,
           success:function (resp){
@@ -346,7 +351,7 @@
            */
       $.ajax({
           // url:"customer2?id="+id+'&name='+name+'&address='+address+'&salary='+salary,
-          url:"customer",
+          url:"http://localhost:8181/_09_Filters_Web_exploded/customer",
           method:"put",
           contentType: "application/json",
           data:JSON.stringify(data),

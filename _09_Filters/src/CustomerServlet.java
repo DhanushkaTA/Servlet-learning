@@ -38,7 +38,7 @@ public class CustomerServlet extends HttpServlet {
                 String id=resultSet.getString(1);
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
-                Double salary = resultSet.getDouble(4);
+                double salary = resultSet.getDouble(4);
 
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 objectBuilder.add("id",id);
@@ -75,6 +75,8 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("Post method hari.........");
 
         resp.setContentType("application/json");
+
+        resp.addHeader("Access-Control-Allow-Origin","*");
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
@@ -122,6 +124,7 @@ public class CustomerServlet extends HttpServlet {
             writer.print(exceotion.build());
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
@@ -129,6 +132,7 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("delete method call........");
 
         resp.setContentType("application/json");
+        resp.addHeader("Access-Control-Allow-Origin","*");
 
         String id=req.getParameter("id");
         System.out.println("delete id eka = "+id);
@@ -174,6 +178,7 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("Put method call.....");
 
         resp.setContentType("application/json");
+        resp.addHeader("Access-Control-Allow-Origin","*");
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
@@ -219,5 +224,13 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.addHeader("Access-Control-Allow-Origin","*");
+        resp.addHeader("Access-Control-Allow-Methods","DELETE,PUT");
+        resp.addHeader("Access-Control-Allow-Headers","*");
+    }
+
+    //X-Requested-With,
     //UPDATE servlet.customer t SET t.salary = 800000 WHERE t.id LIKE 'C008' ESCAPE '#'
 }
