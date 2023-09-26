@@ -1,3 +1,5 @@
+package servlets;
+
 import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -25,7 +27,7 @@ public class CustomerServlet extends HttpServlet {
 
         resp.setContentType("application/json");
 
-        resp.addHeader("Access-Control-Allow-Origin","*");
+//        resp.addHeader("Access-Control-Allow-Origin","*");
 
         String sql="SELECT * FROM customer";
 
@@ -76,7 +78,7 @@ public class CustomerServlet extends HttpServlet {
 
         resp.setContentType("application/json");
 
-        resp.addHeader("Access-Control-Allow-Origin","*");
+//        resp.addHeader("Access-Control-Allow-Origin","*");
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
@@ -132,7 +134,7 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("delete method call........");
 
         resp.setContentType("application/json");
-        resp.addHeader("Access-Control-Allow-Origin","*");
+//        resp.addHeader("Access-Control-Allow-Origin","*");
 
         String id=req.getParameter("id");
         System.out.println("delete id eka = "+id);
@@ -178,7 +180,7 @@ public class CustomerServlet extends HttpServlet {
         System.out.println("Put method call.....");
 
         resp.setContentType("application/json");
-        resp.addHeader("Access-Control-Allow-Origin","*");
+//        resp.addHeader("Access-Control-Allow-Origin","*");
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
@@ -226,9 +228,10 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.addHeader("Access-Control-Allow-Origin","*");
-        resp.addHeader("Access-Control-Allow-Methods","DELETE,PUT");
-        resp.addHeader("Access-Control-Allow-Headers","*");
+//        resp.addHeader("Access-Control-Allow-Origin","*");
+//        resp.addHeader("Access-Control-Allow-Methods","DELETE,PUT");
+//        resp.addHeader("Access-Control-Allow-Headers","Content-Type");
+//        resp.addHeader("Access-Control-Allow-Headers","*");
     }
 
     //X-Requested-With,
